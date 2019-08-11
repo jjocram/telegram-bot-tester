@@ -16,7 +16,7 @@ In this fast guide we assume that your bot is written with [python-telegram-bot]
    from telegram-bot-tester.Model.bot_model import Bot
    test_bot = Bot(bot_id, bot_first_name, bot_username)
     ```
-    bot_id, bot_first_name and bot_username can be retrieve at https://api.telegram.org/bot<TOKEN>/getMe <TOKEN> is your bot's token
+    bot_id, bot_first_name and bot_username can be retrieve at https://api.telegram.org/bot\<TOKEN>/getMe where \<TOKEN> is your bot's token
 3. Instantiate at least one `User` object
     ```python
     from telegram-bot-tester.Model.user_model import User

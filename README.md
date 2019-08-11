@@ -12,8 +12,14 @@ FakeClient send messages (your tests) to FakeServer, your bot connect to FakeSer
 In this fast guide we assume that your bot is written with [python-telegram-bot](https://python-telegram-bot.org) and tested with [PyTest](https://pypi.org/project/pytest/)
 1. Create a `test_bot.py` file
 2. Instantiate a `Bot` object
-```python
-   import telegram-bot-tester.Model.bot_info
+    ```python
+   from telegram-bot-tester.Model.bot_model import Bot
    test_bot = Bot(bot_id, bot_first_name, bot_username)
-```
-bot_id, bot_first_name and bot_username can be retrieve at https://api.telegram.org/bot<TOKEN>/getMe <TOKEN> is your bot's token
+    ```
+    bot_id, bot_first_name and bot_username can be retrieve at https://api.telegram.org/bot<TOKEN>/getMe <TOKEN> is your bot's token
+3. Instantiate at least one `User` object
+    ```python
+    from telegram-bot-tester.Model.user_model import User
+    test_user = User(chat_id, user_first_name, user_last_name, username, language_code)
+    ```
+    chat_id is the only required argument to built an User object; user_first_name, user_last_name, username language_code are optionals but could be useful set them such that you can recognize them

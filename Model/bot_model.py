@@ -10,7 +10,7 @@ class Bot:
         self.first_name = first_name
         self.username = username
 
-    def bot_info_for_callback_query(self):
+    def bot_info(self):
         bot_info = {
             "id": self.id,
             "is_bot": True,

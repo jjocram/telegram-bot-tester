@@ -9,7 +9,9 @@ It works simulating a client (`FakeClient`) and a server (`FakeServer`).
 FakeClient send messages (your tests) to FakeServer, your bot connect to FakeServer and retrieve message you sent, elaborate it adn send back the response to FakeServer. FakeServer send back bot response to FakeClient that can test it (for example with [PyTest](https://pypi.org/project/pytest/))
 
 # How to test things
-In this fast guide we assume that your bot is written with [python-telegram-bot](https://python-telegram-bot.org) and tested with [PyTest](https://pypi.org/project/pytest/)
+In this fast guide we assume that your bot is written with [python-telegram-bot](https://python-telegram-bot.org) and tested with [PyTest](https://pypi.org/project/pytest/).
+
+Please, read all points below before starting using it
 1. Create a `test_bot.py` file
 2. Instantiate a `Bot` object
     ```python
@@ -40,3 +42,37 @@ In this fast guide we assume that your bot is written with [python-telegram-bot]
     bot_response = fake_client.send_message(start_message)
     assert bot_response["text"] == "This is the response for /start command"
     ```
+7. Last requirements before testing:
+
+    - You need some environmental variables to start to test things, you can use `export envName=envVal` to set them
+    
+        - token_tbt: your bot token
+        - botId_tbt: your bot id (the same used in point 2)
+        - botFirstName_tbt: your bot first name (the same used in point 2)
+        - botUsername_tbt: your bot username (the same used in point 2)
+    - Your bot needs to behave in a different way than usual; if you have used [python-telegram-bot](https://python-telegram-bot.org) you can follow this guide otherwise look in example directory
+        
+        - set another environmental variables(for example): `export TEST_TBT=1`
+        - in your main bot script modify the behaviour when TEST_TBT is set
+            ```python
+            from sys import environ
+            def main():
+              .
+              .
+              .
+              if "TEST_TBT" in environ:
+                  updater = Updater(TOKEN, base_url="http://127.0.0.1:5000/")
+                  bot = telegram.Bot(TOKEN, base_url="http://127.0.0.1:5000/")
+              .
+              .
+              .
+              if "TEST_TBT" in environ:
+                  updater.start_polling(poll_interval=3.0)
+            ```
+            Note that you have to change base_url and set which where fake_server is running and you have to change the pulling time.
+8. Start testing:
+    To test you bot you need to run 3 process, its safer run them in only one command line 
+    
+    `python3 bot.py& ./fake_server.py& python3 test_bot.py`
+    
+    Note that bot.py and fake_server.py run in background; you can change `python3 test_bot.py` with your [PyTest](https://pypi.org/project/pytest/) run command

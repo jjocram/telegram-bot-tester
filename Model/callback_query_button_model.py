@@ -11,7 +11,7 @@ class CallbackQueryButton:
         self.chat_instance = chat_instance
         self.data = data
 
-    def get_callback_query_button_info(self):
+    def callback_query_button_info(self):
         callback_query_button_clicked = {
             "id": self.id,
             "from": self.sender,

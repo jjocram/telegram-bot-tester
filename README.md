@@ -23,3 +23,20 @@ In this fast guide we assume that your bot is written with [python-telegram-bot]
     test_user = User(chat_id, user_first_name, user_last_name, username, language_code)
     ```
     chat_id is the only required argument to built an User object; user_first_name, user_last_name, username language_code are optionals but could be useful set them such that you can recognize them
+4. Instantiate one FakeClient object
+    ```python
+    from telegram-bot-tester.fake_client import FakeClient
+    fake_client = FakeClient(test_bot, test_user)
+    ```
+    test_bot and test_user are the same object instantiated in point 2 and 3
+5. Create your first message
+    ```python
+    from telegram-bot-tester.Model.message_model import Message
+    start_message = Message(message_id=123, test_user, test_bot, "/start")
+    ```
+    message_id is an arbitrary number, you can choose whatever you want
+6. Send your first message and assert the response
+    ```python
+    bot_response = fake_client.send_message(start_message)
+    assert bot_response["text"] == "This is the response for /start command"
+    ```

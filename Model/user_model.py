@@ -12,6 +12,18 @@ class User:
         self.username = username
         self.language_code = language_code
 
+
+    def user_info(self):
+        info = {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "username": self.username,
+            "language_code": self.language_code
+        }
+
+        return info
+
     def user_info_for_sender(self):
         sender = {
             "id": self.id,
